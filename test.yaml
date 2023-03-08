@@ -1,0 +1,19 @@
+--- #frst ansible file
+- hosts: devlinux
+  user: ajay
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: docker
+      command: yum install docker -y
+
+    - name: service
+      command: systemctl start docker
+    
+    - name: container
+      command: docker run -dp 80:80 --name amol httpd
+
+    - name: copy
+      command: docker cp /mnt/index.html amol:/usr/local/apache2/htdocs
